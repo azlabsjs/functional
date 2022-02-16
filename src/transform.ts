@@ -1,14 +1,5 @@
 import { compose } from './compose';
-import { Predicate, ReducerFunc, UnaryFunction } from './types';
-
-type IterableType<T> =
-  | Generator<T>
-  | Iterable<T>
-  | T[]
-  | IterableIterator<T>
-  | ReadonlyArray<T>
-  | Set<T>
-  | ReadonlySet<T>;
+import { IterableType, Predicate, ReducerFunc, UnaryFunction } from './types';
 
 /**
  * Apply a transformation function on a given value and reduce it down to an output
