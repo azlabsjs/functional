@@ -13,6 +13,7 @@
     "start": "tsdx watch",
     "build": "tsdx build",
     "test": "tsdx test",
+    "test:coverage": "tsdx test --coverage",
     "lint": "tsdx lint",
     "prepare": "tsdx build",
     "size": "size-limit",
@@ -30,7 +31,7 @@
     "singleQuote": true,
     "trailingComma": "es5"
   },
-  "name": "functional",
+  "name": "@iazlabs/functional",
   "author": "azandrew-sidoine",
   "module": "dist/functional.esm.js",
   "size-limit": [

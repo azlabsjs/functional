@@ -117,8 +117,7 @@ export const ReduceOne = <T, ReturnType>(
   initial: ReturnType | T
 ) => {
   let carry = initial;
-  carry = reducer(carry, value);
-  return carry;
+  return reducer(carry as ReturnType, value);
 };
 
 /**
@@ -147,27 +146,30 @@ export const Reduce = <T, ReturnType>(
 ) => {
   let carry = initial;
   for (const iterator of list) {
-    reducer(carry, iterator);
+    carry = reducer(carry as ReturnType, iterator);
   }
   return carry;
 };
 
 /**
  * Functional interface used for filtering iterables|list of values {@see IterableType<T>} by applying
- * a predicate
+ * a predicate.
+ *
+ * Note: It produces a generator that can be converted to Set, Array, etc... by passing a collector
+ * function or by wrapping the return value in a collector function
  *
  * @example
  * const values = FilterList(
  *  [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
  *   x => x % 2 === 0,
  *   Array.from) as number[];
- * 
+ *
  * @param list
  * @param predicate
  * @param collector
  * @returns
  */
-export const Filter = <T, ReturnType>(
+export const Filter = <T, ReturnType extends IterableType<T>>(
   list: IterableType<T>,
   predicate: Predicate<T>,
   collector?: (generator: Generator<T, void>) => ReturnType

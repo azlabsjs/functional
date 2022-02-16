@@ -1,4 +1,4 @@
-export { compose, reverseCompose } from './compose';
+export { compose, reverseCompose, vReverseCompose, vCompose } from './compose';
 export {
   UnaryFunction,
   ReducerFunc,
@@ -15,5 +15,6 @@ export {
   Reduce,
   ReduceOne,
   Filter,
-  Tap
+  Tap,
+  Each,
 } from './transform';
