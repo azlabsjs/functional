@@ -6,6 +6,7 @@ export {
   CollectorFunc,
   ComposeFunc,
   Function_,
+  IterableType,
 } from './types';
 
 export {
