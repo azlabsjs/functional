@@ -8,12 +8,6 @@ Function composition interface for creating a stack of functions that are apply 
 
 > Note : At each step, output from previous step is passed as input to the current step.
 
-## Transform
-
-Apply a transformation function on a given value and reduce it down to an output.
-
-> Note : using the reducer function.
-
 ## Usage
 
 ### Create a top -> down stack of functions
@@ -100,4 +94,57 @@ expect(vCompose()('Azandrew', 'Komi Sidoine')).toEqual([
   'Azandrew',
   'Komi Sidoine',
 ]);
+```
+
+## Transform
+
+Apply a transformation function on a given value and reduce it down to an output.
+
+> Note : using the reducer function.
+
+## Usage
+
+### IdentityFunc()
+
+> Should return the same value provided by the caller
+
+```ts
+IdentityFunc({ lat: 3.084853, long: 1.29852 });
+```
+
+### MapTo()
+
+> Should return the double of the integer value provided
+
+```ts
+MapTo(3, (x) => x * 2);
+```
+
+### Tap()
+
+> Should call the provided function with the provided value
+
+```ts
+const mailSender = {
+  sendMail: function (email: string) {
+    if (email) {
+      // Send email to remote user
+    }
+  },
+};
+
+const spy = jest.spyOn(mailSender, 'sendMail');
+
+Tap('azandrewdevelopper@example.com', mailSender.sendMail);
+```
+
+### Each()
+
+> Should call the provided function on all element of the list
+
+```ts
+Each(
+  ['azandrewdevelopper@example.com', 'lordfera@example.com'],
+  mailSender.sendMail
+);
 ```
