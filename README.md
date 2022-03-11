@@ -8,6 +8,18 @@ Functional library exposes functional interface function for iterating over utte
 
 * [Transform](#transform)
 
+      * [MapTo()](#mapTo)
+
+      * [Tap()](#tap)
+
+      * [Each()](#each)
+
+      * [ReduceOne()](#reduceOne)
+
+      * [Reduce()](#reduce)
+
+      * [Filter()](#filter)
+
 
 # Compose
 
