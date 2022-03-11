@@ -4,34 +4,33 @@ Functional library exposes functional interface function for iterating over utte
 
 # Table of contents
 
-* [Compose](#compose)
+- [Compose](#compose)
 
-  * [compose()](#mapTo)
+  - [compose()](#compose)
 
-  * [reverseCompose()](#tap)
+  - [reverseCompose()](#reverseCompose)
 
-  * [mapReduce()](#each)
+  - [mapReduce()](#mapReduce)
 
-  * [ReduceOne()](#reduceOne)
+  - [ReduceOne()](#ReduceOne)
 
-  * [vReverseCompose()](#reduce)
+  - [vReverseCompose()](#vReverseCompose)
 
-  * [vCompose()](#filter)
+  - [vCompose()](#vCompose)
 
-* [Transform](#transform)
+- [Transform](#transform)
 
-  * [MapTo()](#mapTo)
+  - [MapTo()](#mapTo)
 
-  * [Tap()](#tap)
+  - [Tap()](#tap)
 
-  * [Each()](#each)
+  - [Each()](#each)
 
-  * [ReduceOne()](#reduceOne)
+  - [ReduceOne()](#reduceOne)
 
-  * [Reduce()](#reduce)
+  - [Reduce()](#reduce)
 
-  * [Filter()](#filter)
-
+  - [Filter()](#filter)
 
 # Compose
 
@@ -43,7 +42,7 @@ Function composition interface for creating a stack of functions that are apply 
 
 Function composition tests
 
-* import several utility functions
+- import several utility functions
 
 ```ts
 import {
@@ -151,7 +150,7 @@ Apply a transformation function on a given value and reduce it down to an output
 
 Transformation, Filtering, Reducers function tests
 
-* import several utility functions
+- import several utility functions
 
 ````ts
 import {
