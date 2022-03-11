@@ -2,13 +2,34 @@
 
 Functional library exposes functional interface function for iterating over utterable, performing function composition, etc...
 
-## Compose
+# Table of contents
+
+* [Compose](#compose)
+
+* [Transform](#transform)
+
+
+# Compose
 
 Function composition interface for creating a stack of functions that are apply to a given input.
 
 > Note : At each step, output from previous step is passed as input to the current step.
 
 ## Usage
+
+Function composition tests
+
+* import several utility functions
+
+```ts
+import {
+  compose,
+  mapReduce,
+  reverseCompose,
+  vCompose,
+  vReverseCompose,
+} from '../src';
+```
 
 ### Create a top -> down stack of functions
 
@@ -96,7 +117,7 @@ expect(vCompose()('Azandrew', 'Komi Sidoine')).toEqual([
 ]);
 ```
 
-## Transform
+# Transform
 
 Apply a transformation function on a given value and reduce it down to an output.
 
@@ -104,13 +125,29 @@ Apply a transformation function on a given value and reduce it down to an output
 
 ## Usage
 
+Transformation, Filtering, Reducers function tests
+
+* import several utility functions
+
+````ts
+import {
+  IdentityFunc,
+  MapTo,
+  Each,
+  Tap,
+  ReduceOne,
+  Reduce,
+  Filter,
+} from '../src';
+```
+
 ### IdentityFunc()
 
 > Should return the same value provided by the caller
 
 ```ts
 IdentityFunc({ lat: 3.084853, long: 1.29852 });
-```
+````
 
 ### MapTo()
 
@@ -147,4 +184,65 @@ Each(
   ['azandrewdevelopper@example.com', 'lordfera@example.com'],
   mailSender.sendMail
 );
+```
+
+### ReduceOne()
+
+> should return 3 if called on 1 with an initial value of 2
+
+```ts
+ReduceOne(
+  1,
+  (prev, curr) => {
+    prev += curr;
+    return prev;
+  },
+  2
+);
+```
+
+### Reduce()
+
+> should to produce same result as reduce() method called on array
+
+```ts
+Reduce(
+  (function* () {
+    let index = 1;
+    while (index <= 10) {
+      yield index;
+      index++;
+    }
+  })(),
+  (prev, curr) => {
+    prev += curr;
+    return prev;
+  },
+  0
+);
+
+reduce((prev, curr) => {
+  prev += curr;
+  return prev;
+}, 0);
+```
+
+### Filter()
+
+> Should to produce same result as filter() method called on array
+
+```ts
+Filter(
+  (function* () {
+    let index = 1;
+    while (index <= 10) {
+      yield index;
+      index++;
+    }
+  })(),
+  (x) => x % 2 === 0,
+  Array.from
+);
+
+filter((x) => x % 2 === 0);
 ```
