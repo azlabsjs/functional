@@ -4,15 +4,15 @@ Functional library exposes functional interface function for iterating over utte
 
 # Table of contents
 
-- [Compose](#compose)
+- [Compose](#Create a top -> down stack of functions)
 
-  - [compose()](#compose)
+  - [compose()](#mapTo)
 
   - [reverseCompose()](#reverseCompose)
 
   - [mapReduce()](#mapReduce)
 
-  - [ReduceOne()](#ReduceOne)
+  - [ReduceOne()](#reduceOne)
 
   - [vReverseCompose()](#vReverseCompose)
 
