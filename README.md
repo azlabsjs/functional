@@ -6,13 +6,11 @@ Functional library exposes functional interface function for iterating over utte
 
 - [Compose](#Create a top -> down stack of functions)
 
-  - [compose()](#Createatop->downstackoffunctions)
+  - [compose()](#compose)
 
-  - [reverseCompose()](#Createabottom->upstackoffunctionsandapplyittotheprovidedvalue)
+  - [reverseCompose()](#reverseCompose)
 
-  - [mapReduce()](#Transformeachelementofthelistandreduceitdowntoasinglevalue)
-
-  - [ReduceOne()](#reduceOne)
+  - [mapReduce()](#mapReduce)
 
   - [vReverseCompose()](#vReverseCompose)
 
@@ -54,7 +52,7 @@ import {
 } from '../src';
 ```
 
-### Create a top -> down stack of functions
+### compose() : Create a top -> down stack of functions
 
 ```ts
 const pipe = compose<number[], number>(
@@ -71,7 +69,7 @@ const pipe = compose<number[], number>(
 );
 ```
 
-### Create a bottom -> up stack of functions and apply it to the provided value
+### reverseCompose() : Create a bottom -> up stack of functions and apply it to the provided value
 
 ```ts
 const pipe = reverseCompose<number[], number>(
@@ -88,7 +86,7 @@ const pipe = reverseCompose<number[], number>(
 );
 ```
 
-### Transform each element of the list and reduce it down to a single value
+### mapReduce() : Transform each element of the list and reduce it down to a single value
 
 ```ts
 mapReduce(
