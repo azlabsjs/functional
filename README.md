@@ -6,11 +6,11 @@ Functional library exposes functional interface function for iterating over utte
 
 - [Compose](#Create a top -> down stack of functions)
 
-  - [compose()](#mapTo)
+  - [compose()](#Createatop->downstackoffunctions)
 
-  - [reverseCompose()](#reverseCompose)
+  - [reverseCompose()](#Createabottom->upstackoffunctionsandapplyittotheprovidedvalue)
 
-  - [mapReduce()](#mapReduce)
+  - [mapReduce()](#Transformeachelementofthelistandreduceitdowntoasinglevalue)
 
   - [ReduceOne()](#reduceOne)
 
