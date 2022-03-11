@@ -6,6 +6,18 @@ Functional library exposes functional interface function for iterating over utte
 
 * [Compose](#compose)
 
+  * [compose()](#mapTo)
+
+  * [reverseCompose()](#tap)
+
+  * [mapReduce()](#each)
+
+  * [ReduceOne()](#reduceOne)
+
+  * [vReverseCompose()](#reduce)
+
+  * [vCompose()](#filter)
+
 * [Transform](#transform)
 
   * [MapTo()](#mapTo)
