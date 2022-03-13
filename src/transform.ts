@@ -107,7 +107,7 @@ export const ReduceOne = <T, ReturnType>(
   reducer: ReducerFunc<T, ReturnType>,
   initial: ReturnType | T
 ) => {
-  let carry = initial;
+  const carry = initial;
   return reducer(carry as ReturnType, value);
 };
 

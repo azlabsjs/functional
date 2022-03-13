@@ -27,7 +27,7 @@ import { Function_ } from './types';
  * @param funcs 
  * @returns 
  */
-export function compose<T, R extends any>(...funcs: Function_[]) {
+export function compose<T, R>(...funcs: Function_[]) {
   return function(source: T): R {
     let carry = source as R;
     for (const func of funcs) {
@@ -52,7 +52,7 @@ export function compose<T, R extends any>(...funcs: Function_[]) {
  * @param funcs
  * @returns
  */
-export function vCompose<R extends any>(...funcs: Function_[]) {
+export function vCompose<R>(...funcs: Function_[]) {
   return function(...source: any[]): R {
     if (funcs.length === 0) {
       return source as R;
@@ -81,7 +81,7 @@ export function vCompose<R extends any>(...funcs: Function_[]) {
  * @param funcs
  * @returns
  */
-export function reverseCompose<T, R extends any>(...funcs: Function_[]) {
+export function reverseCompose<T, R>(...funcs: Function_[]) {
   return function(source: T): R {
     let carry = source as R;
     for (const func of funcs.reverse()) {
@@ -108,12 +108,12 @@ export function reverseCompose<T, R extends any>(...funcs: Function_[]) {
  * @param funcs
  * @returns
  */
-export function vReverseCompose<R extends any>(...funcs: Function_[]) {
+export function vReverseCompose<R>(...funcs: Function_[]) {
   return function(...source: any[]): R {
     if (funcs.length === 0) {
       return source as R;
     }
-    let stack = funcs.reverse();
+    const stack = funcs.reverse();
     let carry = stack[0](...source);
     for (const func of stack.slice(1)) {
       carry = func(carry);
