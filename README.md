@@ -52,7 +52,7 @@ import {
 } from '../src';
 ```
 
-### compose() : Create a top -> down stack of functions
+### `compose()`: Create a top -> down stack of functions
 
 ```ts
 const pipe = compose<number[], number>(
@@ -69,7 +69,7 @@ const pipe = compose<number[], number>(
 );
 ```
 
-### reverseCompose() : Create a bottom -> up stack of functions and apply it to the provided value
+### `reverseCompose()`: Create a bottom -> up stack of functions and apply it to the provided value
 
 ```ts
 const pipe = reverseCompose<number[], number>(
@@ -86,7 +86,7 @@ const pipe = reverseCompose<number[], number>(
 );
 ```
 
-### mapReduce() : Transform each element of the list and reduce it down to a single value
+### `mapReduce()` : Transform each element of the list and reduce it down to a single value
 
 ```ts
 mapReduce(
@@ -99,7 +99,7 @@ mapReduce(
 )([1, 2, 3, 4, 5, 6, 7, 8, 9, 10] as number[]);
 ```
 
-### vReverseCompose()
+### `vReverseCompose()`
 
 #### Example
 
@@ -118,7 +118,7 @@ expect(vReverseCompose()('Azandrew', 'Komi Sidoine')).toEqual([
 ]);
 ```
 
-### vCompose()
+### `vCompose()`
 
 #### Example
 
@@ -162,7 +162,7 @@ import {
 } from '../src';
 ```
 
-### IdentityFunc()
+### `IdentityFunc()`
 
 > Should return the same value provided by the caller
 
@@ -170,7 +170,7 @@ import {
 IdentityFunc({ lat: 3.084853, long: 1.29852 });
 ````
 
-### MapTo()
+### `MapTo()`
 
 > Should return the double of the integer value provided
 
@@ -178,7 +178,7 @@ IdentityFunc({ lat: 3.084853, long: 1.29852 });
 MapTo(3, (x) => x * 2);
 ```
 
-### Tap()
+### `Tap()`
 
 > Should call the provided function with the provided value
 
@@ -196,7 +196,7 @@ const spy = jest.spyOn(mailSender, 'sendMail');
 Tap('azandrewdevelopper@example.com', mailSender.sendMail);
 ```
 
-### Each()
+### `Each()`
 
 > Should call the provided function on all element of the list
 
@@ -207,7 +207,7 @@ Each(
 );
 ```
 
-### ReduceOne()
+### `ReduceOne()`
 
 > should return 3 if called on 1 with an initial value of 2
 
@@ -222,7 +222,7 @@ ReduceOne(
 );
 ```
 
-### Reduce()
+### `Reduce()`
 
 > should to produce same result as reduce() method called on array
 
@@ -248,7 +248,7 @@ reduce((prev, curr) => {
 }, 0);
 ```
 
-### Filter()
+### `Filter()`
 
 > Should to produce same result as filter() method called on array
 
