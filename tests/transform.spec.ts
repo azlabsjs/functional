@@ -1,5 +1,5 @@
 import {
-  IdentityFunc,
+  Identity,
   MapTo,
   Each,
   Tap,
@@ -9,8 +9,12 @@ import {
 } from '../src';
 
 describe('Transformation, Filtering, Reducers function tests', () => {
-  it('IdentityFunc should return the same value provided by the caller', () => {
-    expect(IdentityFunc({ lat: 3.084853, long: 1.29852 })).toEqual({
+  it('Identity should return the same value provided by the caller', () => {
+    function dummyFunc(value: object, fn?: (x: object) => object) {
+        fn = fn ?? Identity;
+        return fn(value);
+    }
+    expect(dummyFunc({ lat: 3.084853, long: 1.29852 })).toEqual({
       lat: 3.084853,
       long: 1.29852,
     });

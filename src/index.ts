@@ -11,7 +11,7 @@ export {
 
 export {
   mapReduce,
-  IdentityFunc,
+  Identity,
   MapTo,
   Reduce,
   ReduceOne,
