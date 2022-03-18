@@ -38,7 +38,26 @@ export const mapReduce = <T, R, ReducerRType>(
  *
  * @param value
  */
-export const IdentityFunc = <T>(value: T) => value as T;
+
+/**
+ * @description Returns the exact value that was passed as
+ * parameter. Utility function that can be used as replacement
+ * for other transformation where there no need for transformation
+ * 
+ * @example
+ * 
+ * function dummyFunc<T>(value: number, fn?: (x: number) => T) {
+ *    // In this example, dummyFunc accept as last parameter an optional
+ *    // transformation function which in case it's not provided use
+ *    // Identity as fallback
+ *    fn = fn ?? Identity<T>;
+ *    
+ *    return fn(value);
+ * }
+ * 
+ * @param value 
+ */
+export const Identity = <T>(value: unknown) => value as T;
 
 /**
  * Calls the transformation function on user provided value
@@ -50,12 +69,12 @@ export const IdentityFunc = <T>(value: T) => value as T;
  * const result = MapTo([1...10], getEvenNumbersDoubled);
  *
  * @param value
- * @param valueMapper
+ * @param fn
  */
-export const MapTo = <T, ReturnType>(
+export const MapTo = <T, RType>(
   value: T,
-  valueMapper: (value: T) => ReturnType
-) => valueMapper(value);
+  fn: (value: T) => RType
+) => fn(value);
 
 /**
  * Calls user provided function on the provided value without returning result value
@@ -82,11 +101,11 @@ export const Tap = <T>(value: T, callback: (value: T) => any) => {
  * Each([...], (x) => Order.process(x));
  *
  * @param list
- * @param callback
+ * @param fn
  */
-export const Each = <T>(list: IterableType<T>, callback: (value: T) => any) => {
+export const Each = <T>(list: IterableType<T>, fn: (value: T) => any) => {
   for (const iterator of list) {
-    callback(iterator);
+    fn(iterator);
   }
 };
 
@@ -98,17 +117,17 @@ export const Each = <T>(list: IterableType<T>, callback: (value: T) => any) => {
  * const result = ReduceOne(1, (carry, current) => { carry += current; return carry; }, 3);
  *
  * @param value
- * @param reducer
+ * @param fn
  * @param initial
  * @returns
  */
-export const ReduceOne = <T, ReturnType>(
+export const ReduceOne = <T, RType>(
   value: T,
-  reducer: ReducerFunc<T, ReturnType>,
-  initial: ReturnType | T
+  fn: ReducerFunc<T, RType>,
+  initial: RType | T
 ) => {
   const carry = initial;
-  return reducer(carry as ReturnType, value);
+  return fn(carry as RType, value);
 };
 
 /**
@@ -126,20 +145,20 @@ export const ReduceOne = <T, ReturnType>(
  * const result = ReduceList(generator(), (carry, current) => { carry += current; return carry}, 0);
  *
  * @param list
- * @param reducer
+ * @param fn
  * @param initial
  * @returns
  */
-export const Reduce = <T, ReturnType>(
+export const Reduce = <T, RType>(
   list: IterableType<T>,
-  reducer: ReducerFunc<T, ReturnType>,
-  initial: ReturnType | T
+  fn: ReducerFunc<T, RType>,
+  initial: RType | T
 ) => {
   let carry = initial;
   for (const iterator of list) {
-    carry = reducer(carry as ReturnType, iterator);
+    carry = fn(carry as RType, iterator);
   }
-  return carry;
+  return carry as ReturnType<typeof fn>;
 };
 
 /**
@@ -150,7 +169,7 @@ export const Reduce = <T, ReturnType>(
  * function or by wrapping the return value in a collector function
  *
  * @example
- * const values = FilterList(
+ * const values = Filter(
  *  [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
  *   x => x % 2 === 0,
  *   Array.from) as number[];
@@ -160,10 +179,10 @@ export const Reduce = <T, ReturnType>(
  * @param collector
  * @returns
  */
-export const Filter = <T, ReturnType extends IterableType<T>>(
+export const Filter = <T, RType extends IterableType<T>>(
   list: IterableType<T>,
   predicate: Predicate<T>,
-  collector?: (generator: Generator<T, void>) => ReturnType
+  collector?: (generator: Generator<T, void>) => RType
 ) => {
   const values = (function*() {
     for (const iterator of list) {
@@ -172,5 +191,5 @@ export const Filter = <T, ReturnType extends IterableType<T>>(
       }
     }
   })();
-  return collector ? collector(values) : values;
+  return collector ? collector(values) as ReturnType<typeof collector> : values;
 };
