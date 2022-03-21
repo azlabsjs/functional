@@ -19,3 +19,7 @@ export {
   Tap,
   Each,
 } from './transform';
+
+// Memoization implementation types
+export { MemoizerOptions, Compator } from './types';
+export { memoize } from './memoize';
