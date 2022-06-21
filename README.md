@@ -276,7 +276,7 @@ The package also provide function memoization technique implementation for vanil
 
 ```ts
 // Import shallow equality function from utilities librarie
-import { shallowEqual } from '@iazlabs/utilities';
+import { shallowEqual } from '@azlabsjs/utilities';
 
 const costFunc = (() => {
   let numCalls = 0;
