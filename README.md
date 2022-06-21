@@ -2,37 +2,37 @@
 
 The library exposes functional interface function for iterating over iterable, performing function composition, function memoization...
 
-# Table of contents
+## Table of contents
 
-- [Compose](#compose)
+* [Compose](#compose)
 
-  - [compose()](#compose)
+  + [compose()](#compose)
 
-  - [reverseCompose()](#reverseCompose)
+  + [reverseCompose()](#reverseCompose)
 
-  - [mapReduce()](#mapReduce)
+  + [mapReduce()](#mapReduce)
 
-  - [vReverseCompose()](#vReverseCompose)
+  + [vReverseCompose()](#vReverseCompose)
 
-  - [vCompose()](#vCompose)
+  + [vCompose()](#vCompose)
 
-- [Transform](#transform)
+* [Transform](#transform)
 
-  - [MapTo()](#mapTo)
+  + [MapTo()](#mapTo)
 
-  - [Tap()](#tap)
+  + [Tap()](#tap)
 
-  - [Each()](#each)
+  + [Each()](#each)
 
-  - [ReduceOne()](#reduceOne)
+  + [ReduceOne()](#reduceOne)
 
-  - [Reduce()](#reduce)
+  + [Reduce()](#reduce)
 
-  - [Filter()](#filter)
+  + [Filter()](#filter)
 
-- [Memoization]
+* [Memoization]
 
-# Compose
+## Compose
 
 Function composition interface for creating a stack of functions that are apply to a given input.
 
@@ -42,7 +42,7 @@ Function composition interface for creating a stack of functions that are apply 
 
 Function composition tests
 
-- import several utility functions
+* import several utility functions
 
 ```ts
 import {
@@ -54,7 +54,7 @@ import {
 } from '../src';
 ```
 
-### `compose()`: Create a top -> down stack of functions
+### `compose()` : Create a top -> down stack of functions
 
 ```ts
 const pipe = compose<number[], number>(
@@ -71,7 +71,7 @@ const pipe = compose<number[], number>(
 );
 ```
 
-### `reverseCompose()`: Create a bottom up stack of functions and apply it to the provided value
+### `reverseCompose()` : Create a bottom up stack of functions and apply it to the provided value
 
 ```ts
 const pipe = reverseCompose<number[], number>(
@@ -122,7 +122,7 @@ expect(vReverseCompose()('Azandrew', 'Komi Sidoine')).toEqual([
 
 ### `vCompose()`
 
-#### Example
+-- Example
 
 > Return "AZANDREW, KOMI SIDOINE" from provided input
 
@@ -140,19 +140,21 @@ expect(vCompose()('Azandrew', 'Komi Sidoine')).toEqual([
 ]);
 ```
 
-# Transform
+## Transform
 
 Apply a transformation function on a given value and reduce it down to an output.
 
 > Note : using the reducer function.
 
-## Usage
+-- Usage
 
 Transformation, Filtering, Reducers function tests
 
-- import several utility functions
+* import several utility functions
 
-````ts
+`
+
+```ts
 import {
   IdentityFunc,
   MapTo,
