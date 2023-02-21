@@ -8,3 +8,7 @@
 ## [0.1.7] 2022-03-21
 
 - Add function memoization implementation
+
+## [0.2.0] 2023-02-21
+
+- Added a combine reducer implementation

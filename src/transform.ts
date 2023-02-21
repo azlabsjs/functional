@@ -117,17 +117,17 @@ export const Each = <T>(list: IterableType<T>, fn: (value: T) => any) => {
  * const result = ReduceOne(1, (carry, current) => { carry += current; return carry; }, 3);
  *
  * @param value
- * @param fn
+ * @param reducer
  * @param initial
  * @returns
  */
 export const ReduceOne = <T, RType>(
   value: T,
-  fn: ReducerFunc<T, RType>,
+  reducer: ReducerFunc<T, RType>,
   initial: RType | T
 ) => {
   const carry = initial;
-  return fn(carry as RType, value);
+  return reducer(carry as RType, value);
 };
 
 /**
@@ -145,20 +145,20 @@ export const ReduceOne = <T, RType>(
  * const result = ReduceList(generator(), (carry, current) => { carry += current; return carry}, 0);
  *
  * @param list
- * @param fn
+ * @param reducer
  * @param initial
  * @returns
  */
 export const Reduce = <T, RType>(
   list: IterableType<T>,
-  fn: ReducerFunc<T, RType>,
+  reducer: ReducerFunc<T, RType>,
   initial: RType | T
 ) => {
   let carry = initial;
   for (const iterator of list) {
-    carry = fn(carry as RType, iterator);
+    carry = reducer(carry as RType, iterator);
   }
-  return carry as ReturnType<typeof fn>;
+  return carry as ReturnType<typeof reducer>;
 };
 
 /**
