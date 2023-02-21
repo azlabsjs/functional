@@ -1,25 +1,25 @@
-export { compose, reverseCompose, vReverseCompose, vCompose } from './compose';
+export { compose, reverseCompose, vCompose, vReverseCompose } from './compose';
+export { memoize } from './memoize';
+export { combineReducers, ReducerType } from './reducers';
 export {
-  UnaryFunction,
-  ReducerFunc,
-  Predicate as FilterFunc,
-  CollectorFunc,
-  ComposeFunc,
-  Function_,
-  IterableType,
-} from './types';
-
-export {
-  mapReduce,
+  Each,
+  Filter,
   Identity,
+  mapReduce,
   MapTo,
   Reduce,
   ReduceOne,
-  Filter,
-  Tap,
-  Each,
+  Tap
 } from './transform';
+export {
+  CollectorFunc,
+  Compator,
+  ComposeFunc,
+  Function_,
+  IterableType,
+  MemoizerOptions,
+  Predicate,
+  ReducerFunc,
+  UnaryFunction
+} from './types';
 
-// Memoization implementation types
-export { MemoizerOptions, Compator } from './types';
-export { memoize } from './memoize';

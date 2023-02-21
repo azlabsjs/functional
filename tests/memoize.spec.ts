@@ -1,5 +1,4 @@
-import { memoize } from '../src/memoize';
-import { Compator } from '../src/types';
+import { Compator, memoize } from '../src';
 
 function isobject_(o: unknown) {
     return o != null && typeof o === 'object';
