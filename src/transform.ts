@@ -43,19 +43,19 @@ export const mapReduce = <T, R, ReducerRType>(
  * @description Returns the exact value that was passed as
  * parameter. Utility function that can be used as replacement
  * for other transformation where there no need for transformation
- * 
+ *
  * @example
- * 
+ *
  * function dummyFunc<T>(value: number, fn?: (x: number) => T) {
  *    // In this example, dummyFunc accept as last parameter an optional
  *    // transformation function which in case it's not provided use
  *    // Identity as fallback
  *    fn = fn ?? Identity<T>;
- *    
+ *
  *    return fn(value);
  * }
- * 
- * @param value 
+ *
+ * @param value
  */
 export const Identity = <T>(value: unknown) => value as T;
 
@@ -71,10 +71,7 @@ export const Identity = <T>(value: unknown) => value as T;
  * @param value
  * @param fn
  */
-export const MapTo = <T, RType>(
-  value: T,
-  fn: (value: T) => RType
-) => fn(value);
+export const MapTo = <T, RType>(value: T, fn: (value: T) => RType) => fn(value);
 
 /**
  * Calls user provided function on the provided value without returning result value
@@ -90,7 +87,7 @@ export const MapTo = <T, RType>(
  * @param value
  * @param callback
  */
-export const Tap = <T>(value: T, callback: (value: T) => any) => {
+export const Tap = <T>(value: T, callback: (value: T) => unknown) => {
   callback(value);
 };
 
@@ -103,7 +100,7 @@ export const Tap = <T>(value: T, callback: (value: T) => any) => {
  * @param list
  * @param fn
  */
-export const Each = <T>(list: IterableType<T>, fn: (value: T) => any) => {
+export const Each = <T>(list: IterableType<T>, fn: (value: T) => void) => {
   for (const iterator of list) {
     fn(iterator);
   }
@@ -184,12 +181,14 @@ export const Filter = <T, RType extends IterableType<T>>(
   predicate: Predicate<T>,
   collector?: (generator: Generator<T, void>) => RType
 ) => {
-  const values = (function*() {
+  const values = (function* () {
     for (const iterator of list) {
       if (predicate(iterator)) {
         yield iterator;
       }
     }
   })();
-  return collector ? collector(values) as ReturnType<typeof collector> : values;
+  return collector
+    ? (collector(values) as ReturnType<typeof collector>)
+    : values;
 };

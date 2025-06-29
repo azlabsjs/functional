@@ -34,7 +34,7 @@ describe('Transformation, Filtering, Reducers function tests', () => {
     };
     const spy = jest.spyOn(mailSender, 'sendMail');
     Tap('azandrewdevelopper@example.com', mailSender.sendMail);
-    expect(spy).toBeCalledWith('azandrewdevelopper@example.com');
+    expect(spy).toHaveBeenCalledWith('azandrewdevelopper@example.com');
   });
 
   it('Each() should call the provided function on all element of the list', () => {
@@ -50,7 +50,7 @@ describe('Transformation, Filtering, Reducers function tests', () => {
       ['azandrewdevelopper@example.com', 'lordfera@example.com'],
       mailSender.sendMail
     );
-    expect(spy).toBeCalledTimes(2);
+    expect(spy).toHaveBeenCalledTimes(2);
   });
 
   it('ReduceOne() should return 3 if called on 1 with an initial value of 2', () => {

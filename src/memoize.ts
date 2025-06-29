@@ -12,7 +12,7 @@ import {
 const computeIntoCache = (
   fn: (...args: unknown[]) => unknown,
   cache: CacheType,
-  ...args: any
+  ...args: unknown[]
 ) => {
   // Compute key for the given value
   let value = cache.get(args);
@@ -25,7 +25,7 @@ const computeIntoCache = (
 
 // @internal
 const compute = (fn: (...args: unknown[]) => unknown, cache: CacheType) => {
-  return (arg: any) => computeIntoCache(fn, cache, arg);
+  return (arg: unknown) => computeIntoCache(fn, cache, arg);
 };
 
 // @internal
@@ -33,7 +33,7 @@ const computeVariadic = (
   fn: (...args: unknown[]) => unknown,
   cache: CacheType
 ) => {
-  return (...args: any) => computeIntoCache(fn, cache, ...args);
+  return (...args: unknown[]) => computeIntoCache(fn, cache, ...args);
 };
 
 const evaluateConfiguration = (options: Partial<MemoizerOptions>) => {
@@ -71,17 +71,23 @@ function memoizer<
   /** Paramters for the internal function  */
   ParamsTypes extends unknown[] = unknown[],
   /** Return type of the internal function if provided */
-  RType = unknown
->(internal: (...args: ParamsTypes) => RType, options?: Partial<MemoizerOptions>) {
+  RType = unknown,
+>(
+  internal: (...args: ParamsTypes) => RType,
+  options?: Partial<MemoizerOptions>
+) {
   if (options) {
     evaluateConfiguration(options);
   }
   const cacheFactory =
-    options?.cacheFactory ??
-    (options?.equality !== null && typeof options?.equality !== 'undefined')
+    (options?.cacheFactory ??
+    (options?.equality !== null && typeof options?.equality !== 'undefined'))
       ? EqualityCacheFactory(options.equality as EqualityCacheOptions)
       : HashCacheFactory;
-  const strategy = (options?.strategy as any) ?? DefaultStrategy;
+
+  const strategy = (options?.strategy ?? DefaultStrategy) as (
+    ...x: unknown[]
+  ) => (...args: ParamsTypes) => RType;
   return strategy(internal, {
     cacheFactory,
     strategy: strategy,

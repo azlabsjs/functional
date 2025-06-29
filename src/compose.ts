@@ -28,8 +28,8 @@ import { Function_ } from './types';
  * @returns 
  */
 export function compose<T, R>(...funcs: Function_[]) {
-  return function(source: T): R {
-    let carry = source as unknown as  R;
+  return function (source: T): R {
+    let carry = source as unknown as R;
     for (const func of funcs) {
       carry = func(carry);
     }
@@ -53,7 +53,7 @@ export function compose<T, R>(...funcs: Function_[]) {
  * @returns
  */
 export function vCompose<R>(...funcs: Function_[]) {
-  return function(...source: any[]): R {
+  return function (...source: unknown[]): R {
     if (funcs.length === 0) {
       return source as unknown as R;
     }
@@ -61,7 +61,7 @@ export function vCompose<R>(...funcs: Function_[]) {
     for (const func of funcs.slice(1)) {
       carry = func(carry);
     }
-    return carry;
+    return carry as R;
   };
 }
 
@@ -82,7 +82,7 @@ export function vCompose<R>(...funcs: Function_[]) {
  * @returns
  */
 export function reverseCompose<T, R>(...funcs: Function_[]) {
-  return function(source: T): R {
+  return function (source: T): R {
     let carry = source as unknown as R;
     for (const func of funcs.reverse()) {
       carry = func(carry);
@@ -109,7 +109,7 @@ export function reverseCompose<T, R>(...funcs: Function_[]) {
  * @returns
  */
 export function vReverseCompose<R>(...funcs: Function_[]) {
-  return function(...source: any[]): R {
+  return function (...source: unknown[]): R {
     if (funcs.length === 0) {
       return source as unknown as R;
     }

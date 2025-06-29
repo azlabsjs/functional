@@ -4,13 +4,14 @@ export const NOT_FOUND = '__NOT_FOUND__';
 //!Ends Constants
 
 export type IterableType<T> =
-  | Generator<T, any, any>
+  | Generator<T, unknown, unknown>
   | Iterable<T>
   | T[]
   | IterableIterator<T>
   | ReadonlyArray<T>
   | Set<T>
   | ReadonlySet<T>;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type Function_ = (...params: any[]) => any;
 export type UnaryFunction<T, R> = (p: T, index?: number) => R;
 export type ReducerFunc<T, R> = (previous: R, current: T, index?: number) => R;
@@ -21,7 +22,7 @@ export type ComposeFunc<T, R> = (...funcs: Function_[]) => (source: T) => R;
 // Types
 //
 // @internal
-export type Compator<Params extends unknown[] = any[]> = (
+export type Compator<Params extends unknown[] = unknown[]> = (
   a: unknown,
   b: unknown,
   ...least: Params
@@ -41,8 +42,8 @@ export type CacheEntry = { key: CacheKey; value: unknown };
 
 // @internal
 export type CacheType = {
-  get(key: CacheKey): any | typeof NOT_FOUND;
-  set(key: CacheKey, value: any): void;
+  get(key: CacheKey): unknown | typeof NOT_FOUND;
+  set(key: CacheKey, value: unknown): void;
   entries: () => unknown;
   clear?: () => void;
 };
@@ -62,5 +63,5 @@ export type MemoizerOptions = {
   strategy: (
     internal: (...args: unknown[]) => unknown,
     options: MemoizerOptions
-  ) => any;
+  ) => unknown;
 };

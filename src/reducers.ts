@@ -1,31 +1,34 @@
 /**
  * Reducer function type declaration
  */
-export type ReducerType<TState, TAction> = (state: TState, action: TAction) => TState;
+export type ReducerType<TState, TAction> = (
+  state: TState,
+  action: TAction
+) => TState;
 
 /**
  * @internal
  * Combine reducer function parameters type declaration
  */
 type CombineReducersParameters<
-  TSTate extends Record<string, unknown> = any,
-  TAction = any
+  TSTate extends Record<string, unknown> = Record<string, unknown>,
+  TAction = unknown,
 > =
   | Record<keyof TSTate, ReducerType<TSTate[keyof TSTate], TAction>>
   | [keyof TSTate, ReducerType<TSTate[keyof TSTate], TAction>][];
 
 /**
- * Provices a reducer function that passes the state thruough 
+ * Provices a reducer function that passes the state thruough
  * a set of reducer functions that will update part of the state
  * using provided user key property.
- * 
+ *
  * @example
- * 
+ *
  * const state = {
  *      posts: [] as { title: string; content: string; id: number }[],
  *      post_types: []  as { label: string; id: number }[],
  * };
- * 
+ *
  * const reducer = combineReducers<typeof state>([
  *      [
  *          "posts",
@@ -39,15 +42,15 @@ type CombineReducersParameters<
  *          }
  *      ]
  * ]);
- * 
+ *
  * // Calling reducer on action
  * const _state = reducer(state, {type: "posts_add", payload: {...}});
  *
  * @param reducers
  */
 export function combineReducers<
-  TSTate extends Record<string, unknown> = any,
-  TAction = any
+  TSTate extends Record<string, unknown> = Record<string, unknown>,
+  TAction = unknown,
 >(reducers: CombineReducersParameters<TSTate, TAction>) {
   return Array.isArray(reducers)
     ? _combineListReducers(reducers)
@@ -63,8 +66,8 @@ export function combineReducers<
  * @param reducers
  */
 function _combineDictReducers<
-  TSTate extends Record<string, unknown> = any,
-  TAction = any
+  TSTate extends Record<string, unknown> = Record<string, unknown>,
+  TAction = unknown,
 >(reducers: Record<keyof TSTate, ReducerType<TSTate[keyof TSTate], TAction>>) {
   return (state: TSTate, action: TAction) => {
     let _state = { ...state } as TSTate;
@@ -87,8 +90,8 @@ function _combineDictReducers<
  * @param reducers
  */
 function _combineListReducers<
-  TSTate extends Record<string, unknown> = any,
-  TAction = any
+  TSTate extends Record<string, unknown> = Record<string, unknown>,
+  TAction = unknown,
 >(reducers: [keyof TSTate, ReducerType<TSTate[keyof TSTate], TAction>][]) {
   return (state: TSTate, action: TAction) => {
     let _state = { ...state } as TSTate;

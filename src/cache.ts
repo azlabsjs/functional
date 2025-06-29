@@ -9,6 +9,9 @@ import {
   NOT_FOUND,
 } from './types';
 
+type EntriesFunctionType<T> = () => Iterable<readonly [PropertyKey, T]>;
+type IterableCacheKey = { entries: EntriesFunctionType<unknown> };
+
 // Helpers
 // @internal
 // Internal implementation of a cache arguments comparator function
@@ -50,7 +53,7 @@ function cacheComparator(equals: Compator) {
  * @returns {@see CacheType}
  */
 export function HashCache(): CacheType {
-  const store = new Map<number, any>();
+  const store = new Map<number, unknown>();
   const computeHash = (str: string) => {
     let hash = 0;
     if (str.length === 0) return hash;
@@ -64,8 +67,8 @@ export function HashCache(): CacheType {
    * // Serialization function
    * Takes in list of arguments and convert them into string
    */
-  const valueHasher = (value: any) => {
-    const serialize_ = (arg: any) => {
+  const valueHasher = (value: CacheKey) => {
+    const serialize_ = (arg: CacheKey) => {
       const argType = typeof arg;
       if (argType === 'string') {
         return arg;
@@ -76,31 +79,39 @@ export function HashCache(): CacheType {
         argType === 'number' ||
         argType === 'boolean' ||
         argType === 'function';
+
       if (stringeable) {
-        return arg.toString();
+        return String(arg).toString();
       }
-      if (argType === 'object' && typeof arg.entries === 'function') {
-        return JSON.stringify(Object.fromEntries(arg.entries()));
+
+      if (
+        typeof arg === 'object' &&
+        !Array.isArray(arg) &&
+        typeof (arg as unknown as IterableCacheKey).entries === 'function'
+      ) {
+        return JSON.stringify(
+          Object.fromEntries((arg as unknown as IterableCacheKey).entries())
+        );
       }
       return JSON.stringify(arg);
     };
     return function <T>(hashFunction: (v: string) => T) {
       const result = hashFunction(
         Array.isArray(value)
-          ? value.map((v) => serialize_(v)).join(',')
+          ? value.map((v) => serialize_(v as IArguments)).join(',')
           : (serialize_(value) as string)
       );
       return result;
     };
   };
   // Compute the hash value of the serialized
-  const keyFn = (value: any) => valueHasher(value)(computeHash);
+  const keyFn = (value: CacheKey) => valueHasher(value)(computeHash);
   return {
-    get: (key: unknown) => {
+    get: (key: CacheKey) => {
       const key_ = keyFn(key);
       return store.get(key_) ?? NOT_FOUND;
     },
-    set: (key: unknown, value: any) => {
+    set: (key: CacheKey, value: unknown) => {
       const key_ = keyFn(key);
       store.set(key_, value);
     },
